@@ -1,3 +1,4 @@
+/* General Reset */
 *,
 *::before,
 *::after {
@@ -334,4 +335,3 @@ body:hover .custom-cursor {
         font-size: 0.75rem;
     }
 }
-
