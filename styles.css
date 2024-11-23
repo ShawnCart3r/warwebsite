@@ -54,46 +54,159 @@ a:hover {
 }
 
 /* Navigation Bar */
-nav {
+* Navbar */
+main {
+    padding: 100px 20px;
+    min-height: 200vh; /* Extend page for scroll demo */
+}
+
+h1 {
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* Progress Bar */
+#progress-bar {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 10px 20px;
-    z-index: 1000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    width: 0%;
+    height: 5px;
+    background: #f39c12;
+    z-index: 9999;
 }
 
+/* Navigation Bar */
+nav {
+    position: fixed;
+    top: 0; /* Sticks to the top of the page */
+    left: 50%; /* Centers the nav horizontally */
+    transform: translateX(-50%); /* Correct alignment from the left */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+    width: auto; /* Ensures it doesn't stretch the full width of the viewport */
+    padding: 10px 20px;
+    text-align: center;
+}
+
+/* Center Navigation Links Horizontally */
 nav ul {
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Centers the items horizontally */
+    align-items: center; /* Ensures vertical alignment if needed */
     list-style: none;
-    flex-wrap: wrap;
-    gap: 15px;
+    flex-wrap: wrap; /* Allows wrapping for smaller screens */
+    gap: 20px; /* Spacing between links */
+    margin: 0;
+    padding: 0;
+}
+
+/* Navigation Links */
+nav ul li {
+    position: relative;
+    margin: 0;
 }
 
 nav ul li a {
+    text-decoration: none;
+    color: #ddd;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.3s ease, transform 0.3s ease;
+    padding: 10px 15px;
+    border-radius: 5px;
     position: relative;
-    font-size: 1rem;
-    overflow: hidden;
-    transition: color 0.3s ease;
+    z-index: 1;
 }
 
+/* Hover Effects */
+nav ul li a:hover {
+    color: #f39c12;
+    text-shadow: 0px 4px 12px rgba(255, 255, 255, 0.6), 0px 0px 4px rgba(255, 255, 255, 0.3);
+    transform: scale(1.1) translateY(-2px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 13px;
+}
+
+/* Background Effect on Hover */
+nav ul li a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #333, #111);
+    opacity: 0;
+    z-index: -1;
+    transition: background 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
+    transform: scale(0.95);
+    border-radius: 5px;
+}
+
+nav ul li a:hover::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Underline Animation */
 nav ul li a::after {
     content: '';
     position: absolute;
     bottom: 0;
-    width: 100%;
+    left: 50%;
+    width: 0;
     height: 2px;
-    background-color: #f39c12;
-    transform: translateX(-100%); /* Simplified transform */
-    transition: transform 0.4s ease;
+    background: white;
+    transition: width 0.3s ease, left 0.3s ease;
 }
 
 nav ul li a:hover::after {
-    transform: translateX(0);
+    width: 100%;
+    left: 0;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        gap: 15px;
+    }
+
+    nav ul li a {
+        font-size: 16px;
+        padding: 8px 10px;
+    }
+}
+
+/* Tooltip Styles */
+nav ul li a[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+}
+
+nav ul li a:hover[data-tooltip]::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-5px);
+}
+
 
 /* Main Layout */
 .layout {
@@ -724,72 +837,101 @@ button:hover {
     }
 }
 
-/* General Styles */
-
-/* Container for Squares */
+/* Main Container */
 .war-container {
-    display: flex;
-    gap: 30px;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Flexible grid layout */
+    gap: 20px;
+    width: 100%;
+    height: 100%; /* Fills the entire section */
+    padding: 20px;
     animation: fadeIn 1.5s ease-out;
+    background: linear-gradient(135deg, #1a1a2e, #16213e); /* Subtle gradient background */
 }
 
-/* Square Styles */
+/* War Square Styles */
 .war-square {
-    width: 280px;
-    height: 280px;
+    position: relative; /* Enables absolute positioning for the image */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end; /* Pushes text to the bottom */
     align-items: center;
     text-align: center;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    background: #ffffff10;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border-radius: 15px; /* Increased rounding for modern aesthetics */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.05);
+    overflow: hidden; /* Ensures the image doesn't spill out */
+    width: 100%; /* Take full grid cell width */
+    height: 100%; /* Take full grid cell height */
+    background: none; /* Removes the square color */
+    border: 2px solid rgba(255, 255, 255, 0.1); /* Adds a subtle border */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effect */
 }
 
-/* Hover Effects */
-.war-square:hover {
-    transform: scale(1.1) rotate(2deg);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), inset 0 0 25px rgba(255, 255, 255, 0.2);
+/* Anchor Tag Styles */
+.war-square a {
+    position: relative; /* Stacks text over the image */
+    z-index: 2; /* Ensures text is above the image */
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Pushes text to the bottom */
+    align-items: center;
+    padding: 20px; /* Adds spacing for text */
+    text-align: center;
+    backdrop-filter: blur(5px); /* Subtle glassmorphism effect */
 }
 
-/* Multiverse War */
-.multiverse-war {
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    border: 2px solid #2575fc;
-}
-
-/* Nightmaric War */
-.nightmaric-war {
-    background: linear-gradient(135deg, #ff416c, #ff4b2b);
-    border: 2px solid #ff4b2b;
-}
-
-/* Shadow War */
-.shadow-war {
-    background: linear-gradient(135deg, #000000, #434343);
-    border: 2px solid #434343;
+/* Image Styles */
+.war-square img {
+    position: absolute; /* Fills the entire square */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image scales properly without distortion */
+    z-index: 1; /* Places the image below the text */
+    border-radius: 15px; /* Keeps the rounded corners */
+    filter: brightness(70%) saturate(1.2); /* Makes the image more vibrant */
+    transition: filter 0.3s ease; /* Smooth transition on hover */
 }
 
 /* Text Styles */
 .war-square h2 {
     font-size: 1.8rem;
-    margin: 0 0 10px 0;
+    margin: 10px 0;
     color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    z-index: 2; /* Ensures text stays above the image */
+    font-family: 'Poppins', sans-serif; /* Clean, modern font */
+    font-weight: bold;
 }
 
 .war-square p {
     font-size: 1rem;
     color: #e0e0e0;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+    margin: 5px 0 10px;
+    z-index: 2; /* Ensures text stays above the image */
+    font-family: 'Roboto', sans-serif; /* Secondary clean font */
+}
+
+/* Hover Effects */
+.war-square:hover {
+    transform: scale(1.1); /* Increased scale effect */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.war-square:hover img {
+    filter: brightness(90%) saturate(1.5); /* Enhances image brightness on hover */
+}
+
+.war-square a:hover h2,
+.war-square a:hover p {
+    text-decoration: underline;
+    color: #ffcc00; /* Adds a highlight color for text hover */
 }
 
 /* Animation */
@@ -804,72 +946,76 @@ button:hover {
     }
 }
 
-.button-container .button {
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* General Button Styles */
+.button {
     display: inline-block;
     font-size: 16px;
     font-weight: bold;
     padding: 12px 25px;
-    margin: 5px;
+    text-decoration: none;
     border: none;
     border-radius: 8px;
     text-align: center;
-    text-decoration: none;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: white; /* Default text color */
+}
+
+/* Button-Specific Styles */
+.theresa-faction {
+    background-color: #007BFF;
     color: white;
 }
 
-/* Add gradient backgrounds for both buttons */
-.button-container .button:nth-child(1) {
-    background: linear-gradient(45deg, #007BFF, #0056b3);
+.read-more {
+    background-color: #000;
+    color: white;
 }
 
-.button-container .button:nth-child(2) {
-    background: linear-gradient(45deg, #28A745, #1e7e34);
+.darkness-faction {
+    background-color: black;
+    color: red;
 }
 
-/* Hover effects for floating */
-.button-container .button:hover {
-    transform: translateY(-4px);
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+.federation-faction {
+    background-color: #007BFF;
+    color: white;
 }
 
-/* Active state for a pressed look */
-.button-container .button:active {
-    transform: translateY(-1px);
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
-}
 
-/* Gloss-over effect */
-.button-container .button::before {
-    content: '';
-    position: absolute;
-    top: -100%;
-    left: -100%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent);
-    transform: rotate(45deg);
-    transition: opacity 0.3s ease;
-    opacity: 0;
-    pointer-events: none;
-}
-
-.button-container .button:hover::before {
-    animation: gloss 0.8s ease forwards;
-    opacity: 1;
-}
-
-@keyframes gloss {
-    0% {
-        top: -100%;
-        left: -100%;
+.nightmare-faction {
+    background-color: magenta;
+    color: purple;}
+    
+    .Prime-faction {
+        background-color: purple;
+        color: magenta;
     }
-    100% {
-        top: 100%;
-        left: 100%;
-    }
+    
+    
+    .Arcana-faction {
+        background-color: red;
+        color: black;}
+    
+
+/* Button Hover Effects */
+.button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
+
+/* Button Active Effects */
+.button:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
